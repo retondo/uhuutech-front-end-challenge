@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #FFFFFF;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+}
