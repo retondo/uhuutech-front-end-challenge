@@ -24,5 +24,5 @@ export type Genre = {
 export type DiscoverQueryParams = {
   readonly include_adult: boolean;
   readonly include_video: boolean;
-  with_genres?: string;
+  with_genres?: number[];
 } & QueryParams;
