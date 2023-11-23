@@ -15,3 +15,14 @@ export type Movie = {
   title: string;
   release_date: string;
 };
+
+export type Genre = {
+  id: number;
+  name: string;
+};
+
+export type DiscoverQueryParams = {
+  readonly include_adult: boolean;
+  readonly include_video: boolean;
+  with_genres?: string;
+} & QueryParams;
