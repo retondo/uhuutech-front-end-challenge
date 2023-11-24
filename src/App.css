@@ -1,4 +1,11 @@
-#root {
-  display: flex;
-  place-content: center;
+.content-px {
+  padding-right: 7.25rem; /* 116px */
+  padding-left: 7.25rem;
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:content-px {
+    padding-right: 7.25rem;
+    padding-left: 7.25rem;
+  }
 }
