@@ -9,6 +9,9 @@ const defaultQueryParams: DiscoverQueryParams = {
 };
 
 const discover = {
+  /**
+   * Search movies sorted by popularity.
+   */
   async searchMovies(
     params: DiscoverQueryParams = defaultQueryParams,
   ): Promise<ResponseList<Movie>> {
