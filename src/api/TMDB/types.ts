@@ -3,12 +3,15 @@ export type QueryParams = {
   page?: number;
 };
 
-export type ResponseList<T> = {
+export type Pagination = {
   page: number;
-  results: T[];
   total_pages: number;
   total_results: number;
 };
+
+export type ResponseList<T> = {
+  results: T[];
+} & Pagination;
 
 export type Movie = {
   id: number;
