@@ -1,5 +1,5 @@
 import httpClient from "./httpClient";
-import type { DiscoverQueryParams, Genre } from "./types";
+import type { DiscoverQueryParams, Movie, ResponseList } from "./types";
 
 const path = "/discover";
 
@@ -11,7 +11,7 @@ const defaultQueryParams: DiscoverQueryParams = {
 const discover = {
   async searchMovies(
     params: DiscoverQueryParams = defaultQueryParams,
-  ): Promise<{ genres: Genre[] }> {
+  ): Promise<ResponseList<Movie>> {
     const p = {
       ...params,
       ...defaultQueryParams,
