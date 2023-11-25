@@ -18,7 +18,7 @@ export type Movie = {
   title: string;
   release_date: string;
   poster_path: string;
-  poster_url: string;
+  poster_url: string | null;
 };
 
 export type Genre = {

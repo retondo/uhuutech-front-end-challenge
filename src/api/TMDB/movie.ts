@@ -17,7 +17,7 @@ function dateFormatter(date: string): string {
 export function mapper(movies: Movie[]): Movie[] {
   return movies.map((movie) => ({
     ...movie,
-    poster_url: `${imgBaseURL}${movie.poster_path}`,
+    poster_url: movie.poster_path ? `${imgBaseURL}${movie.poster_path}` : null,
     release_date: dateFormatter(movie.release_date),
   }));
 }
