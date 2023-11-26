@@ -1,6 +1,6 @@
 import { LoaderFunction } from "react-router-dom";
 import tmdbApiClient from "@app/api/TMDB";
-import type { Genre, Movie, Pagination } from "@app/api/TMDB";
+import type { Genre, Movie, Pagination, ResponseList } from "@app/api/TMDB";
 import FilterService from "@app/services/FilterService";
 
 export type HomePageLoaderData = {
@@ -15,28 +15,30 @@ const loader: LoaderFunction = async ({
   const { searchParams } = new URL(request.url);
   const filters = FilterService.parse(searchParams);
 
-  let movies: Movie[];
-  let pagination: Pagination;
+  let response: ResponseList<Movie>;
 
   if (filters.genre.length > 0) {
-    const { results, ...rest } = await tmdbApiClient.searchMovies({
-      with_genres: filters.genre.join(","),
-      page: filters.pagination.page,
-    });
-    movies = results;
-    pagination = rest;
+    response = await tmdbApiClient.searchMovies(
+      {
+        with_genres: filters.genre.join(","),
+        page: filters.pagination.page,
+      },
+      { signal: request.signal },
+    );
   } else {
-    const { results, ...rest } = await tmdbApiClient.getPopular({
-      page: filters.pagination.page,
-    });
-    movies = results;
-    pagination = rest;
+    response = await tmdbApiClient.getPopular(
+      {
+        page: filters.pagination.page,
+      },
+      { signal: request.signal },
+    );
   }
 
   const { genres } = await tmdbApiClient.getMoviesGenres();
+  const { results, ...pagination } = response;
 
   return {
-    movies,
+    movies: results,
     genres,
     pagination,
   };
