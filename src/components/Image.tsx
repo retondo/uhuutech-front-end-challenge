@@ -12,5 +12,9 @@ function ImagePlaceholder() {
 }
 
 export default function Image({ src, alt }: ImageProps) {
-  return src ? <img src={src} alt={alt} /> : <ImagePlaceholder />;
+  return src ? (
+    <img className="h-[inherit] min-h-[inherit]" src={src} alt={alt} />
+  ) : (
+    <ImagePlaceholder />
+  );
 }
