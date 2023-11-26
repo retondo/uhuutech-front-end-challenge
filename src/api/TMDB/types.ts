@@ -1,3 +1,5 @@
+import type { AxiosRequestConfig } from "axios";
+
 export type QueryParams = {
   language?: string;
   page?: number;
@@ -31,3 +33,5 @@ export type DiscoverQueryParams = {
   readonly include_video?: boolean;
   with_genres?: string;
 } & QueryParams;
+
+export type RequestConfig = Omit<AxiosRequestConfig, "params">;

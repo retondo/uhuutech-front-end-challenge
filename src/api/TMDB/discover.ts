@@ -1,6 +1,11 @@
 import httpClient from "./httpClient";
 import { mapper } from "./movie";
-import type { DiscoverQueryParams, Movie, ResponseList } from "./types";
+import type {
+  DiscoverQueryParams,
+  Movie,
+  RequestConfig,
+  ResponseList,
+} from "./types";
 
 const path = "/discover";
 
@@ -14,12 +19,16 @@ const defaultQueryParams: DiscoverQueryParams = {
  */
 async function searchMovies(
   params: DiscoverQueryParams = defaultQueryParams,
+  config: RequestConfig = {},
 ): Promise<ResponseList<Movie>> {
   const p = {
     ...params,
     ...defaultQueryParams,
   };
-  const { data } = await httpClient.get(`${path}/movie`, { params: p });
+  const { data } = await httpClient.get(`${path}/movie`, {
+    ...config,
+    params: p,
+  });
 
   return {
     ...data,

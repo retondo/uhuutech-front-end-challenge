@@ -1,5 +1,5 @@
 import httpClient from "./httpClient";
-import type { Movie, QueryParams, ResponseList } from "./types";
+import type { Movie, QueryParams, RequestConfig, ResponseList } from "./types";
 
 const path = "/movie";
 const imgBaseURL = "https://image.tmdb.org/t/p/original";
@@ -22,10 +22,13 @@ export function mapper(movies: Movie[]): Movie[] {
   }));
 }
 
-async function getPopular(params?: QueryParams): Promise<ResponseList<Movie>> {
+async function getPopular(
+  params?: QueryParams,
+  config: RequestConfig = {},
+): Promise<ResponseList<Movie>> {
   const { data } = await httpClient.get<ResponseList<Movie>>(
     `${path}/popular`,
-    { params },
+    { ...config, params },
   );
 
   return {
@@ -34,8 +37,11 @@ async function getPopular(params?: QueryParams): Promise<ResponseList<Movie>> {
   };
 }
 
-async function getMovie(id: number): Promise<Movie> {
-  const { data } = await httpClient.get(`${path}/${id}`);
+async function getMovie(
+  id: number,
+  config: RequestConfig = {},
+): Promise<Movie> {
+  const { data } = await httpClient.get(`${path}/${id}`, config);
   return data;
 }
 
