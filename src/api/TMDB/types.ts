@@ -21,6 +21,10 @@ export type Movie = {
   release_date: string;
   poster_path: string;
   poster_url: string | null;
+  genres: Genre[];
+  runtime: number;
+  overview: string;
+  vote_average: number;
 };
 
 export type Genre = {
@@ -35,3 +39,24 @@ export type DiscoverQueryParams = {
 } & QueryParams;
 
 export type RequestConfig = Omit<AxiosRequestConfig, "params">;
+
+export type Credits = {
+  id: number;
+  cast: CastPerson[];
+  crew: CrewPerson[];
+};
+
+export type Person = {
+  id: number;
+  name: string;
+  known_for_department: string;
+};
+
+export type CastPerson = {
+  cast_id: number;
+  character: string;
+} & Person;
+
+export type CrewPerson = {
+  department: string;
+} & Person;

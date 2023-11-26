@@ -1,5 +1,11 @@
 import httpClient from "./httpClient";
-import type { Movie, QueryParams, RequestConfig, ResponseList } from "./types";
+import type {
+  Credits,
+  Movie,
+  QueryParams,
+  RequestConfig,
+  ResponseList,
+} from "./types";
 
 const path = "/movie";
 const imgBaseURL = "https://image.tmdb.org/t/p/original";
@@ -8,6 +14,7 @@ export function mapper(movies: Movie[]): Movie[] {
   return movies.map((movie) => ({
     ...movie,
     poster_url: movie.poster_path ? `${imgBaseURL}${movie.poster_path}` : null,
+    vote_average: movie.vote_average * 10,
   }));
 }
 
@@ -35,7 +42,16 @@ async function getMovie(
   return movie;
 }
 
+async function getCredits(
+  id: string,
+  config: RequestConfig = {},
+): Promise<Credits> {
+  const { data } = await httpClient.get(`${path}/${id}/credits`, config);
+  return data;
+}
+
 const movie = {
+  getCredits,
   getPopular,
   getMovie,
 };
