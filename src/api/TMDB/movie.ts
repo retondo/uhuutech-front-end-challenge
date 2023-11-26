@@ -38,7 +38,7 @@ async function getPopular(
 }
 
 async function getMovie(
-  id: number,
+  id: string,
   config: RequestConfig = {},
 ): Promise<Movie> {
   const { data } = await httpClient.get(`${path}/${id}`, config);
