@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { Link, useLoaderData, useNavigation } from "react-router-dom";
 import { useRef } from "react";
 import type { HomePageLoaderData } from "./loader";
 import AppBar from "@app/components/AppBar";
@@ -8,6 +8,14 @@ import ToggleFilter from "@app/components/ToggleFilter";
 import Card from "@app/components/Card";
 import List from "@app/components/List";
 import Paginator from "@app/components/Paginator";
+import dateFormatter from "@app/utils/dateFormatter";
+
+function formatDateWithShortMonth(date: string) {
+  return dateFormatter(date, {
+    month: "short",
+    separator: " ",
+  });
+}
 
 export default function HomePage() {
   const { movies, genres, pagination } = useLoaderData() as HomePageLoaderData;
@@ -21,7 +29,7 @@ export default function HomePage() {
 
   return (
     <>
-      <AppBar className="sm:content-px md:content-px lg:content-px xl:content-px 2xl:content-px">
+      <AppBar className="xl:px-52">
         <p className="text-center text-5xl font-bold text-white">
           Milhões de filmes, séries e pessoas para descobrir. Explore já.
         </p>
@@ -58,14 +66,16 @@ export default function HomePage() {
         }
       >
         {movies.map((movie) => (
-          // Link to movie page
-          <Card
-            key={movie.id}
-            imgSrc={movie.poster_url}
-            imgAlt={movie.title}
-            title={movie.title}
-            description={movie.release_date}
-          />
+          <div className="col-span-2">
+            <Link key={movie.id} to={`movie/${movie.id}`}>
+              <Card
+                imgSrc={movie.poster_url}
+                imgAlt={movie.title}
+                title={movie.title}
+                description={formatDateWithShortMonth(movie.release_date)}
+              />
+            </Link>
+          </div>
         ))}
       </List>
     </>
