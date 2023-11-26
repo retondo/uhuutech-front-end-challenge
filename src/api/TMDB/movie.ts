@@ -42,7 +42,8 @@ async function getMovie(
   config: RequestConfig = {},
 ): Promise<Movie> {
   const { data } = await httpClient.get(`${path}/${id}`, config);
-  return data;
+  const [movie] = mapper([data]);
+  return movie;
 }
 
 const movie = {
