@@ -24,13 +24,13 @@ export default function MoviePage() {
 
   return (
     <>
-      <AppBar className="min-h-[600px] text-white">
+      <AppBar className="min-h-[600px] text-white xl:bg-gradient-to-b xl:from-secondary xl:from-85% xl:to-white xl:to-15%">
         <div className="grid grid-cols-12 gap-8">
           <div className="col-start-4 col-end-10 lg:col-span-4">
             <MoviePoster src={movie.poster_url} alt={movie.title} />
           </div>
 
-          <div className="col-span-full flex flex-col md:col-span-full">
+          <div className="col-span-full flex flex-col lg:col-span-8">
             <div className="mb-4 mt-4 lg:mt-0">
               <MovieTitle
                 title={movie.title}
@@ -69,7 +69,7 @@ export default function MoviePage() {
         id="cast"
         className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx"
       >
-        <div className="mb-7 mt-10">
+        <div className="mb-7 mt-10 xl:mt-0">
           <SectionTitle title="Elenco original" />
         </div>
         <div className="flex w-full flex-nowrap gap-4 overflow-auto px-2 py-4">

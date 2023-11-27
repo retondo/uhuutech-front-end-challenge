@@ -5,9 +5,7 @@ type YouTubeEmbedProps = {
 export default function YouTubeEmbed({ srcKey }: YouTubeEmbedProps) {
   return srcKey ? (
     <iframe
-      className="min-w-[907px] max-w-[907px]"
-      // width="907"
-      // height="510"
+      className="max-h-[182px] min-h-[182px] min-w-[324px] max-w-[324px] md:max-h-[243px] md:min-h-[243px] md:min-w-[433px] md:max-w-[433px] lg:max-h-[510px] lg:min-h-[510px] lg:min-w-[907px] lg:max-w-[907px]"
       src={`https://www.youtube.com/embed/${srcKey}`}
     ></iframe>
   ) : null;
