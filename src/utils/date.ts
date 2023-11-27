@@ -6,7 +6,7 @@ type DateFormatterOptions = Partial<
 
 const defaultDateFormatterOptions: DateFormatterOptions = {
   day: "2-digit",
-  month: "numeric",
+  month: "2-digit",
   year: "numeric",
   separator: "/",
 };
