@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import FilterService from "@app/services/FilterService";
+import FiltersService from "@app/services/FiltersService";
 
 type FilterArgs = {
   key: string;
@@ -17,14 +17,14 @@ export default function useFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const filters = useMemo(
-    () => FilterService.parse(searchParams),
+    () => FiltersService.parse(searchParams),
     [searchParams],
   );
 
   const setFilter = useCallback(
     (key: string, value: string | number, append: boolean = false) => {
       setSearchParams((prevSearchParams) => {
-        return FilterService.set(key, value, append, prevSearchParams);
+        return FiltersService.set(key, value, append, prevSearchParams);
       });
     },
     [setSearchParams],
@@ -35,7 +35,7 @@ export default function useFilters() {
       setSearchParams((prevSearchParams) => {
         return filters.reduce(
           (acc, { key, value, append = false }) =>
-            FilterService.set(key, value, append, acc),
+            FiltersService.set(key, value, append, acc),
           prevSearchParams,
         );
       });
@@ -46,7 +46,7 @@ export default function useFilters() {
   const removeFilter = useCallback(
     (key: string, value?: string | number) => {
       setSearchParams((prevSearchParams) => {
-        return FilterService.remove(key, value, prevSearchParams);
+        return FiltersService.remove(key, value, prevSearchParams);
       });
     },
     [setSearchParams],
@@ -56,7 +56,7 @@ export default function useFilters() {
     (filters: RemoveFiltersArgs) => {
       setSearchParams((prevSearchParams) => {
         return filters.reduce(
-          (acc, { key, value }) => FilterService.remove(key, value, acc),
+          (acc, { key, value }) => FiltersService.remove(key, value, acc),
           prevSearchParams,
         );
       });

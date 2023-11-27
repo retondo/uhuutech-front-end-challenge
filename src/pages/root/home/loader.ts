@@ -1,7 +1,7 @@
 import { LoaderFunction } from "react-router-dom";
 import tmdbApiClient from "@app/api/TMDB";
 import type { Genre, Movie, Pagination, ResponseList } from "@app/api/TMDB";
-import FilterService from "@app/services/FilterService";
+import FiltersService from "@app/services/FiltersService";
 
 export type HomePageLoaderData = {
   movies: Movie[];
@@ -13,7 +13,7 @@ const loader: LoaderFunction = async ({
   request,
 }): Promise<HomePageLoaderData> => {
   const { searchParams } = new URL(request.url);
-  const filters = FilterService.parse(searchParams);
+  const filters = FiltersService.parse(searchParams);
 
   let response: ResponseList<Movie>;
 

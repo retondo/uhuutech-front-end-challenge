@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import FilterService from "@app/services/FilterService";
+import FiltersService from "@app/services/FiltersService";
 import Button from "./Button";
 
 type PaginatorProps = {
@@ -124,13 +124,13 @@ export default function Paginator({ maxLimit, onLoadPage }: PaginatorProps) {
     visibilityClass = "invisible";
   }
 
-  const { pagination } = FilterService.parse(searchParams);
+  const { pagination } = FiltersService.parse(searchParams);
 
   function handler({ page }: { page: number }) {
     if (onLoadPage) {
       onLoadPage();
     }
-    setSearchParams(FilterService.set("page", page));
+    setSearchParams(FiltersService.set("page", page));
   }
 
   return (

@@ -5,7 +5,7 @@ type Filters = {
   };
 };
 
-export default class FilterService {
+export default class FiltersService {
   static parse(params?: URLSearchParams): Filters {
     const searchParams =
       params ?? new URLSearchParams(document.location.search);
