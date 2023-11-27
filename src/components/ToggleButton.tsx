@@ -4,6 +4,7 @@ import type {
   MouseEventHandler,
 } from "react";
 import closeSvg from "@app/assets/close-icon.svg";
+import Button from "./Button";
 
 type ToggleButtonProps = {
   label: string;
@@ -45,12 +46,9 @@ export default function ToggleButton({
   };
 
   return (
-    <button
-      className={`flex place-content-center gap-2 rounded px-4 py-2 font-bold ${classes}`}
-      onClick={handleClick}
-    >
+    <Button className={classes} onClick={handleClick}>
       <p>{label}</p>
       {toggle && <ClearButton onClick={handleClearClick} />}
-    </button>
+    </Button>
   );
 }
