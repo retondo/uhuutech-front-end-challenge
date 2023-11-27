@@ -5,7 +5,7 @@ export default function RootPage() {
   return (
     <>
       <header>
-        <NavBar className="sm:content-px md:content-px lg:content-px xl:content-px 2xl:content-px" />
+        <NavBar className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx" />
       </header>
       <main>
         <section>
