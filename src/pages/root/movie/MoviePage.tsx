@@ -1,5 +1,5 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { useEffect, type CSSProperties } from "react";
+import { useEffect } from "react";
 import type { MovieLoaderData } from "./loader";
 import AppBar from "@app/components/AppBar";
 import Image from "@app/components/Image";
@@ -7,6 +7,7 @@ import dateFormatter from "@app/utils/date";
 import { fromMinutesToHours } from "@app/utils/time";
 import { imgBaseURL } from "@app/api/TMDB";
 import Card from "@app/components/Card";
+import CircleProgress from "@app/components/CircleProgress";
 
 export default function MoviePage() {
   const { movie, crew, cast, videos, recommendations } =
@@ -44,22 +45,11 @@ export default function MoviePage() {
               <p className="text-lg">{details}</p>
             </div>
 
-            <div className="mb-8 flex items-center gap-3">
-              <div className="relative flex h-[60px] w-[60px] gap-2 rounded-full bg-white/10 text-[#14FF00]">
-                <p className="m-auto font-bold">{voteAverage}</p>
-                <div className="circle-progress absolute">
-                  <svg className="relative h-[60px] w-[60px] -rotate-90">
-                    <circle
-                      style={{ "--percent": voteAverage } as CSSProperties}
-                      className="h-full w-full fill-none stroke-[#14FF00] stroke-[4px]"
-                      cx="30"
-                      cy="30"
-                      r="28"
-                    ></circle>
-                  </svg>
-                </div>
-              </div>
-              <p>Avaliação dos usuários</p>
+            <div className="mb-8">
+              <CircleProgress
+                value={voteAverage}
+                label="Avaliação dos usuários"
+              />
             </div>
 
             <div className="mb-7 flex flex-col gap-2">

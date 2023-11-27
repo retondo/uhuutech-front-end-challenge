@@ -3,12 +3,6 @@
   padding-right: 1rem;
 }
 
-.circle-progress svg circle {
-  stroke-linecap: round;
-  stroke-dasharray: 625px;
-  stroke-dashoffset: calc(625px - (175px * var(--percent)) / 100);
-}
-
 @media (min-width: 768px) {
   .md\:page-mx {
     padding-left: 2rem;

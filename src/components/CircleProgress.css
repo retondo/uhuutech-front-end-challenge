@@ -1,0 +1,5 @@
+svg circle {
+  stroke-linecap: round;
+  stroke-dasharray: 625px;
+  stroke-dashoffset: calc(625px - (175px * var(--percent)) / 100);
+}
