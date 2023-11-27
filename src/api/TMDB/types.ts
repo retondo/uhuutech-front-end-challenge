@@ -50,6 +50,7 @@ export type Person = {
   id: number;
   name: string;
   known_for_department: string;
+  profile_path: string;
 };
 
 export type CastPerson = {
@@ -60,3 +61,10 @@ export type CastPerson = {
 export type CrewPerson = {
   department: string;
 } & Person;
+
+export type Video = {
+  id: string;
+  key: string;
+  site: string;
+  name: string;
+};

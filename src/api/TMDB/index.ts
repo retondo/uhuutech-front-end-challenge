@@ -4,6 +4,7 @@ import genre from "./genre";
 import movie from "./movie";
 
 export * from "./types";
+export { imgBaseURL } from "./movie";
 
 const tmdbApiClient = {
   ...discover,

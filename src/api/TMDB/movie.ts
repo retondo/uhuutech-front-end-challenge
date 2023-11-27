@@ -5,10 +5,11 @@ import type {
   QueryParams,
   RequestConfig,
   ResponseList,
+  Video,
 } from "./types";
 
 const path = "/movie";
-const imgBaseURL = "https://image.tmdb.org/t/p/original";
+export const imgBaseURL = "https://image.tmdb.org/t/p/original";
 
 export function mapper(movies: Movie[]): Movie[] {
   return movies.map((movie) => ({
@@ -42,7 +43,7 @@ async function getMovie(
   return movie;
 }
 
-async function getCredits(
+async function getMovieCredits(
   id: string,
   config: RequestConfig = {},
 ): Promise<Credits> {
@@ -50,10 +51,19 @@ async function getCredits(
   return data;
 }
 
+async function getMovieVideos(
+  id: string,
+  config: RequestConfig = {},
+): Promise<ResponseList<Video>> {
+  const { data } = await httpClient.get(`${path}/${id}/videos`, config);
+  return data;
+}
+
 const movie = {
-  getCredits,
+  getMovieCredits,
   getPopular,
   getMovie,
+  getMovieVideos,
 };
 
 export default movie;
