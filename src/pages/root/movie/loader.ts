@@ -1,13 +1,17 @@
 import type { LoaderFunction } from "react-router-dom";
-import tmdbApiClient from "@app/api/TMDB";
 import type { Credits, Movie, Video } from "@app/api/TMDB";
+import tmdbApiClient from "@app/api/TMDB";
+import { fromMinutesToHours } from "@app/utils/time";
 
 type MovieRouteParams = {
   id: string;
 };
 
 export type MovieLoaderData = {
-  movie: Movie;
+  movie: { genres: string; runtime: string } & Omit<
+    Movie,
+    "genres" | "runtime"
+  >;
   cast: Credits["cast"];
   crew: Credits["crew"];
   videos: Video[];
@@ -37,11 +41,32 @@ const loader: LoaderFunction = async ({
 
   const [movie, { cast, crew }, videos, recommendations] = results;
 
+  const genres = movie.genres.map(({ name }) => name).join(", ");
+  const runtime = fromMinutesToHours(movie.runtime);
+  const voteAverage = Math.trunc(movie.vote_average);
+
+  const crewPeople = crew
+    .filter((crewPerson) =>
+      crewPerson.department.match(
+        /directing|characters|screenplay|writing|production/i,
+      ),
+    )
+    .splice(0, 6);
+
+  const youtubeVideosKeys = videos.results.filter(
+    ({ name, site }) => name.match(/trailer/i) && site.match(/youtube/i),
+  );
+
   return {
-    movie,
+    movie: {
+      ...movie,
+      genres,
+      runtime,
+      vote_average: voteAverage,
+    },
     cast,
-    crew,
-    videos: videos.results,
+    crew: crewPeople,
+    videos: youtubeVideosKeys,
     recommendations: recommendations.results,
   };
 };

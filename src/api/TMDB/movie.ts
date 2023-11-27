@@ -1,5 +1,6 @@
 import httpClient from "./httpClient";
 import type {
+  CastPerson,
   Credits,
   Movie,
   QueryParams,
@@ -48,7 +49,17 @@ async function getMovieCredits(
   config: RequestConfig = {},
 ): Promise<Credits> {
   const { data } = await httpClient.get(`${path}/${id}/credits`, config);
-  return data;
+  const cast = (data.cast as CastPerson[]).map((castPerson) => ({
+    ...castPerson,
+    profile_url: castPerson.profile_path
+      ? `${imgBaseURL}${castPerson.profile_path}`
+      : null,
+  }));
+
+  return {
+    ...data,
+    cast,
+  };
 }
 
 async function getMovieVideos(

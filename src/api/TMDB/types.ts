@@ -50,12 +50,13 @@ export type Person = {
   id: number;
   name: string;
   known_for_department: string;
-  profile_path: string;
+  profile_path: string | null;
 };
 
 export type CastPerson = {
   cast_id: number;
   character: string;
+  profile_url: string | null;
 } & Person;
 
 export type CrewPerson = {

@@ -1,29 +1,22 @@
 import { Link, useLoaderData } from "react-router-dom";
 import { useEffect } from "react";
-import type { MovieLoaderData } from "./loader";
+
 import AppBar from "@app/components/AppBar";
-import Image from "@app/components/Image";
-import dateFormatter from "@app/utils/date";
-import { fromMinutesToHours } from "@app/utils/time";
-import { imgBaseURL } from "@app/api/TMDB";
 import Card from "@app/components/Card";
+import CastProfile from "@app/components/CastProfile";
 import CircleProgress from "@app/components/CircleProgress";
+import SectionTitle from "@app/components/SectionTitle";
+import YouTubeEmbed from "@app/components/YoutubeEmbed";
+import dateFormatter from "@app/utils/date";
+
+import MoviePoster from "./MoviePoster";
+import MovieSinopse from "./MovieSinopse";
+import MovieTitle from "./MovieTitle";
+import type { MovieLoaderData } from "./loader";
 
 export default function MoviePage() {
   const { movie, crew, cast, videos, recommendations } =
     useLoaderData() as MovieLoaderData;
-
-  const releaseDate = dateFormatter(movie.release_date);
-  const genres = movie.genres.map(({ name }) => name).join(", ");
-  const runtime = fromMinutesToHours(movie.runtime);
-  const details = [releaseDate, genres, runtime].join(" • ");
-  const voteAverage = Math.trunc(movie.vote_average);
-  const crewPeople = crew.splice(0, 8);
-  const youtubeVideosKeys = videos.filter(
-    ({ name, site }) =>
-      name.toLowerCase().includes("trailer") &&
-      site.toLowerCase().includes("youtube"),
-  );
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -33,34 +26,35 @@ export default function MoviePage() {
     <>
       <AppBar className="min-h-[600px] text-white">
         <div className="grid grid-cols-12 gap-8">
-          <div className="relative col-span-4">
-            <div className="absolute overflow-hidden rounded shadow">
-              <Image src={movie.poster_url} alt={movie.title} />
-            </div>
+          <div className="col-start-4 col-end-10 lg:col-span-4">
+            <MoviePoster src={movie.poster_url} alt={movie.title} />
           </div>
 
-          <div className="col-span-8 flex flex-col">
-            <div className="mb-4 flex flex-col gap-2">
-              <p className="text-3xl/9 font-bold">{movie.title}</p>
-              <p className="text-lg">{details}</p>
+          <div className="col-span-full flex flex-col md:col-span-full">
+            <div className="mb-4 mt-4 lg:mt-0">
+              <MovieTitle
+                title={movie.title}
+                description={[
+                  dateFormatter(movie.release_date),
+                  movie.genres,
+                  movie.runtime,
+                ]}
+              />
             </div>
 
             <div className="mb-8">
               <CircleProgress
-                value={voteAverage}
+                value={movie.vote_average}
                 label="Avaliação dos usuários"
               />
             </div>
 
-            <div className="mb-7 flex flex-col gap-2">
-              <p className="text-xl font-bold">Sinopse</p>
-              <p className="text-base text-[#ddd]">
-                {movie.overview ? movie.overview : "Sem sipnopse."}
-              </p>
+            <div className="mb-7">
+              <MovieSinopse sinopse={movie.overview} fallback="Sem sinopse." />
             </div>
 
-            <div className="grid grid-flow-col grid-cols-4 grid-rows-2 gap-7">
-              {crewPeople.map((crewPerson) => (
+            <div className="grid grid-flow-col grid-cols-3 grid-rows-2 gap-7">
+              {crew.map((crewPerson) => (
                 <div key={crypto.randomUUID()}>
                   <p className="font-bold">{crewPerson.name}</p>
                   <p className="text-sm">{crewPerson.known_for_department}</p>
@@ -75,42 +69,37 @@ export default function MoviePage() {
         id="cast"
         className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx"
       >
-        <p className="mb-7 mt-28 text-3xl font-bold">Elenco original</p>
+        <div className="mb-7 mt-10">
+          <SectionTitle title="Elenco original" />
+        </div>
         <div className="flex w-full flex-nowrap gap-4 overflow-auto px-2 py-4">
-          {cast.map(({ id, character, name, profile_path }) => (
-            <div
-              key={id}
-              className="flex min-w-[191px] max-w-[191px] flex-col gap-4 p-2 shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]"
-            >
-              <Image
-                src={profile_path ? `${imgBaseURL}${profile_path}` : null}
-                alt={name}
-              />
-              <p className="text-lg font-bold">{name}</p>
-              <p className="text-base">{character}</p>
-            </div>
+          {cast.map(({ character, name, profile_url }) => (
+            <CastProfile
+              key={crypto.randomUUID()}
+              imgSrc={profile_url}
+              name={name}
+              description={character}
+            />
           ))}
         </div>
       </section>
 
       <section
-        id="trailer"
+        id="trailers"
         className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx"
       >
-        <p className="mt-10 text-3xl font-bold">Trailer</p>
+        <div className="mt-10">
+          <SectionTitle title="Trailers" />
+        </div>
         <div className="flex w-full flex-nowrap gap-4 overflow-auto px-2 py-4">
-          {youtubeVideosKeys.length ? (
-            youtubeVideosKeys.map(({ id, key }) => (
-              <iframe
-                key={id}
-                className="min-w-[907px] max-w-[907px]"
-                width="907"
-                height="510"
-                src={`https://www.youtube.com/embed/${key}`}
-              ></iframe>
+          {videos.length ? (
+            videos.map(({ key }) => (
+              <YouTubeEmbed key={crypto.randomUUID()} srcKey={key} />
             ))
           ) : (
-            <p>Nenhum trailer encontrado.</p>
+            <p className="text-base text-gray-400">
+              Nenhum trailer encontrado.
+            </p>
           )}
         </div>
       </section>
@@ -120,7 +109,9 @@ export default function MoviePage() {
         className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx"
       >
         <div className="pb-10">
-          <p className="mt-10 text-3xl font-bold">Recomendações</p>
+          <div className="mt-10">
+            <SectionTitle title="Recomendações" />
+          </div>
           <div className="flex w-full flex-nowrap gap-4 overflow-auto px-2 py-4">
             {recommendations.length ? (
               recommendations.map((movie) => (
