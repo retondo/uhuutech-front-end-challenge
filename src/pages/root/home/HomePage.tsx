@@ -8,7 +8,7 @@ import ToggleFilter from "@app/components/ToggleFilter";
 import Card from "@app/components/Card";
 import List from "@app/components/List";
 import Paginator from "@app/components/Paginator";
-import dateFormatter from "@app/utils/dateFormatter";
+import dateFormatter from "@app/utils/date";
 
 function formatDateWithShortMonth(date: string) {
   return dateFormatter(date, {
@@ -36,7 +36,7 @@ export default function HomePage() {
         <ToggleFilter title="Filtre por:">
           {genres.map((genre) => (
             <ToggleButton
-              key={genre.id}
+              key={crypto.randomUUID()}
               label={genre.name}
               toggle={filters.genre.includes(genre.id)}
               onClick={() =>
@@ -66,8 +66,8 @@ export default function HomePage() {
         }
       >
         {movies.map((movie) => (
-          <div className="col-span-2">
-            <Link key={movie.id} to={`movie/${movie.id}`}>
+          <div key={movie.id} className="col-span-2">
+            <Link to={`movie/${movie.id}`}>
               <Card
                 imgSrc={movie.poster_url}
                 imgAlt={movie.title}
