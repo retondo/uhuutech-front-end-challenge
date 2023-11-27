@@ -6,7 +6,7 @@ import Card from "@app/components/Card";
 import CastProfile from "@app/components/CastProfile";
 import CircleProgress from "@app/components/CircleProgress";
 import SectionTitle from "@app/components/SectionTitle";
-import YouTubeEmbed from "@app/components/YoutubeEmbed";
+import YouTubeEmbed from "@app/components/YouTubeEmbed";
 import dateFormatter from "@app/utils/date";
 
 import MoviePoster from "./MoviePoster";
