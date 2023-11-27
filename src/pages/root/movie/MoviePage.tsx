@@ -118,8 +118,8 @@ export default function MoviePage() {
                 <Link
                   key={movie.id}
                   className="min-w-[176px] max-w-[176px]"
-                  to={`../movie/${movie.id}`}
-                  reloadDocument
+                  to={`../${movie.id}`}
+                  relative="path"
                 >
                   <Card
                     imgSrc={movie.poster_url}

@@ -57,6 +57,8 @@ const loader: LoaderFunction = async ({
     ({ name, site }) => name.match(/trailer/i) && site.match(/youtube/i),
   );
 
+  window.scrollTo({ behavior: "smooth", top: 0, left: 0 });
+
   return {
     movie: {
       ...movie,
