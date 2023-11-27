@@ -7,19 +7,12 @@ type ListProps = {
 } & PropsWithChildren;
 
 const List = forwardRef(
-  (
-    { children, loading = false, paginator }: ListProps,
-    ref: LegacyRef<HTMLElement>,
-  ) => {
-    if (loading) {
-      return <p className="text-center">Carregando...</p>;
-    }
-
+  ({ children, paginator }: ListProps, ref: LegacyRef<HTMLElement>) => {
     return (
       <article
         ref={ref}
         role="list"
-        className="sm:content-px md:content-px lg:content-px xl:content-px content-px"
+        className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx"
       >
         <article role="grid" className="grid grid-cols-12 gap-8 py-7">
           {children}

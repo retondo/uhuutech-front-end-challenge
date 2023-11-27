@@ -16,7 +16,7 @@ export default function AppBar({ children, className }: AppBarProps) {
   return isDOMReady
     ? createPortal(
         <div
-          className={`content-px bg-secondary flex flex-col place-content-center gap-20 py-40 ${className}`}
+          className={`sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx flex flex-col items-center justify-center gap-20 bg-secondary py-8 md:py-12 lg:py-16 xl:py-20 2xl:py-24 ${className}`}
         >
           {children}
         </div>,

@@ -1,31 +1,37 @@
-.sm\:content-px {
+.sm\:page-mx {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
+.circle-progress svg circle {
+  stroke-linecap: round;
+  stroke-dasharray: 625px;
+  stroke-dashoffset: calc(625px - (175px * var(--percent)) / 100);
+}
+
 @media (min-width: 768px) {
-  .md\:content-px {
+  .md\:page-mx {
     padding-left: 2rem;
     padding-right: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .lg\:content-px {
+  .lg\:page-mx {
     padding-left: 3rem;
     padding-right: 3rem;
   }
 }
 
 @media (min-width: 1280px) {
-  .xl\:content-px {
+  .xl\:page-mx {
     padding-left: 5rem;
     padding-right: 5rem;
   }
 }
 
 @media (min-width: 1536px) {
-  .\32xl\:content-px {
+  .\32xl\:page-mx {
     padding-left: 7.25rem; /* 116px */
     padding-right: 7.25rem;
   }
