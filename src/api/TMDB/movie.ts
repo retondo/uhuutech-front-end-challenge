@@ -59,11 +59,26 @@ async function getMovieVideos(
   return data;
 }
 
+async function getMovieRecommendations(
+  id: string,
+  config: RequestConfig = {},
+): Promise<ResponseList<Movie>> {
+  const { data } = await httpClient.get(
+    `${path}/${id}/recommendations`,
+    config,
+  );
+  return {
+    ...data,
+    results: mapper(data.results),
+  };
+}
+
 const movie = {
-  getMovieCredits,
-  getPopular,
   getMovie,
+  getMovieCredits,
+  getMovieRecommendations,
   getMovieVideos,
+  getPopular,
 };
 
 export default movie;
