@@ -11,9 +11,7 @@ export default function RootPage() {
         <section>
           <div id="app-bar" />
         </section>
-        <section>
-          <Outlet />
-        </section>
+        <Outlet />
       </main>
       <footer></footer>
     </>
