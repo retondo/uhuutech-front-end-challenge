@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useNavigation } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { useRef } from "react";
 import type { HomePageLoaderData } from "./loader";
 import AppBar from "@app/components/AppBar";
@@ -10,17 +10,9 @@ import List from "@app/components/List";
 import Paginator from "@app/components/Paginator";
 import dateFormatter from "@app/utils/date";
 
-function formatDateWithShortMonth(date: string) {
-  return dateFormatter(date, {
-    month: "short",
-    separator: " ",
-  });
-}
-
 export default function HomePage() {
   const { movies, genres, pagination } = useLoaderData() as HomePageLoaderData;
   const { filters, setFilters, removeFilters } = useFilters();
-  const { state } = useNavigation();
   const listRef = useRef<HTMLElement>(null);
 
   function handleLoadPage() {
@@ -30,7 +22,7 @@ export default function HomePage() {
   return (
     <>
       <AppBar className="xl:px-52">
-        <p className="text-center text-5xl font-bold text-white">
+        <p className="mr-16 text-2xl font-bold text-white sm:mr-72 md:mr-0 md:text-center md:text-5xl">
           Milhões de filmes, séries e pessoas para descobrir. Explore já.
         </p>
         <ToggleFilter title="Filtre por:">
@@ -57,7 +49,7 @@ export default function HomePage() {
       </AppBar>
       <List
         ref={listRef}
-        loading={state === "loading"}
+        className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx"
         paginator={
           <Paginator
             maxLimit={pagination.total_pages}
@@ -66,13 +58,19 @@ export default function HomePage() {
         }
       >
         {movies.map((movie) => (
-          <div key={movie.id} className="col-span-2">
+          <div
+            key={movie.id}
+            className="col-span-6 sm:col-span-4 lg:col-span-3 xl:col-span-2"
+          >
             <Link to={`movie/${movie.id}`}>
               <Card
                 imgSrc={movie.poster_url}
                 imgAlt={movie.title}
                 title={movie.title}
-                description={formatDateWithShortMonth(movie.release_date)}
+                description={dateFormatter(movie.release_date, {
+                  month: "short",
+                  separator: " ",
+                })}
               />
             </Link>
           </div>

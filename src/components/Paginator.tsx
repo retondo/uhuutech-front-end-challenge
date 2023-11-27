@@ -10,6 +10,8 @@ type PaginatorProps = {
 type PaginationButtonProps = {
   page: number;
   maxLimit?: number;
+  className?: string;
+  maxNumberedButtons?: number;
   handler: ({ page }: { page: number }) => void;
 };
 
@@ -46,12 +48,14 @@ function PreviousPageButton({ page, handler }: PaginationButtonProps) {
 }
 
 function NumberedPageButtons({
+  className,
   page,
   maxLimit,
+  maxNumberedButtons,
   handler,
 }: Required<PaginationButtonProps>) {
   let mapfn: (v: unknown, k: number) => number;
-  const length = maxLimit >= 5 ? 5 : maxLimit;
+  const length = maxLimit >= maxNumberedButtons ? maxNumberedButtons : maxLimit;
 
   if (maxLimit <= 5 || page < 3) {
     mapfn = (_, i) => i + 1;
@@ -66,7 +70,7 @@ function NumberedPageButtons({
   return (
     <>
       {numberedPages.map((n) => (
-        <li key={`pg-${n}`}>
+        <li key={crypto.randomUUID()} className={className}>
           <Button
             className={`${page === n && "bg-[#d18000] text-white"}`}
             onClick={() => handler({ page: n })}
@@ -98,7 +102,7 @@ function LastPageButton({
   page,
   maxLimit,
   handler,
-}: Required<PaginationButtonProps>) {
+}: Required<Omit<PaginationButtonProps, "className" | "maxNumberedButtons">>) {
   let visibility = "visible";
 
   if (maxLimit < 5 || page === maxLimit || page > maxLimit - 3) {
@@ -134,7 +138,7 @@ export default function Paginator({ maxLimit, onLoadPage }: PaginatorProps) {
   }
 
   return (
-    <nav className={`flex place-content-center py-4 ${visibilityClass}`}>
+    <nav className={`flex items-center justify-center py-4 ${visibilityClass}`}>
       <ul className="flex gap-2">
         <li>
           <FirstPageButton page={pagination.page} handler={handler} />
@@ -143,6 +147,15 @@ export default function Paginator({ maxLimit, onLoadPage }: PaginatorProps) {
           <PreviousPageButton page={pagination.page} handler={handler} />
         </li>
         <NumberedPageButtons
+          className="sm:hidden"
+          maxNumberedButtons={3}
+          page={pagination.page}
+          handler={handler}
+          maxLimit={maxLimit}
+        />
+        <NumberedPageButtons
+          className="hidden sm:block"
+          maxNumberedButtons={5}
           page={pagination.page}
           handler={handler}
           maxLimit={maxLimit}

@@ -3,18 +3,17 @@ import type { LegacyRef, PropsWithChildren, ReactElement } from "react";
 
 type ListProps = {
   paginator: ReactElement;
-  loading: boolean;
+  className?: string;
 } & PropsWithChildren;
 
 const List = forwardRef(
-  ({ children, paginator }: ListProps, ref: LegacyRef<HTMLElement>) => {
+  (
+    { children, className = "", paginator }: ListProps,
+    ref: LegacyRef<HTMLElement>,
+  ) => {
     return (
-      <article
-        ref={ref}
-        role="list"
-        className="sm:page-mx md:page-mx lg:page-mx xl:page-mx 2xl:page-mx"
-      >
-        <article role="grid" className="grid grid-cols-12 gap-8 py-7">
+      <article className={className} ref={ref} role="list">
+        <article role="grid" className="grid grid-cols-12 gap-4 py-7 md:gap-8">
           {children}
         </article>
         {paginator}
