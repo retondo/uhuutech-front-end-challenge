@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logoSvg from "@app/assets/logo.svg";
 
 type NavBarProps = {
@@ -9,7 +10,9 @@ export default function NavBar({ className }: NavBarProps) {
     <nav
       className={`flex items-center justify-start bg-primary py-4 ${className}`}
     >
-      <img src={logoSvg} alt="logo" />
+      <Link to="/">
+        <img src={logoSvg} alt="logo" />
+      </Link>
     </nav>
   );
 }
