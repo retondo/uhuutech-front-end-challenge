@@ -8,11 +8,10 @@ O projeto exige a v18 do Node.
 
 ```bash
    npm i
-   npm run build
-   npx http-server dist/ -p 3000
+   npm run serve
 ```
 
-O projeto estará disponível na URL `http://127.0.0.1:3000`.
+O projeto estará disponível na URL `http://localhost:8080`.
 
 Atenção: Servindo dessa maneira, as rotas, exceto "/", somente funcionam sendo acionadas pela aplicação (client side).
 
