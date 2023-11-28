@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import { useEffect } from "react";
 
 import AppBar from "@app/components/AppBar";
 import Card from "@app/components/Card";
@@ -17,10 +16,6 @@ import type { MovieLoaderData } from "./loader";
 export default function MoviePage() {
   const { movie, crew, cast, videos, recommendations } =
     useLoaderData() as MovieLoaderData;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <>
