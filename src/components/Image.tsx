@@ -1,7 +1,6 @@
-type ImageProps = {
-  src: string | null;
-  alt: string;
-};
+import type { ImgHTMLAttributes } from "react";
+
+type ImageProps = ImgHTMLAttributes<HTMLImageElement>;
 
 function ImagePlaceholder() {
   return (
@@ -11,12 +10,12 @@ function ImagePlaceholder() {
   );
 }
 
-export default function Image({ src, alt }: ImageProps) {
+export default function Image({ src, ...rest }: ImageProps) {
   return src ? (
     <img
       className="h-[inherit] max-h-[inherit] min-h-[inherit]"
       src={src}
-      alt={alt}
+      {...rest}
     />
   ) : (
     <ImagePlaceholder />

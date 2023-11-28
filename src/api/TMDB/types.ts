@@ -20,7 +20,7 @@ export type Movie = {
   title: string;
   release_date: string;
   poster_path: string;
-  poster_url: string | null;
+  poster_url: string | undefined;
   genres: Genre[];
   runtime: number;
   overview: string;
@@ -56,7 +56,7 @@ export type Person = {
 export type CastPerson = {
   cast_id: number;
   character: string;
-  profile_url: string | null;
+  profile_url: string | undefined;
 } & Person;
 
 export type CrewPerson = {
