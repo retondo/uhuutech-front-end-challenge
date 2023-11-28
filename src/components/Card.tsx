@@ -16,7 +16,7 @@ export default function Card({
   return (
     <div className="flex flex-col gap-2 bg-white">
       <div className="min-h-[264px] overflow-hidden rounded border border-[#e7e7e7]">
-        <Image src={imgSrc} alt={imgAlt} />
+        <Image src={imgSrc} alt={imgAlt} loading="lazy" />
       </div>
       <div>
         <p className="text-base font-bold">{title}</p>
