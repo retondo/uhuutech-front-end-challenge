@@ -1,7 +1,7 @@
 import Image from "./Image";
 
 type CardProps = {
-  imgSrc: string | null;
+  imgSrc: string | undefined;
   imgAlt: string;
   title: string;
   description: string;

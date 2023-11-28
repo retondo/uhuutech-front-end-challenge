@@ -1,7 +1,7 @@
 import Image from "./Image";
 
 type CastProfileProps = {
-  imgSrc: string | null;
+  imgSrc: string | undefined;
   name: string;
   description: string;
 };
